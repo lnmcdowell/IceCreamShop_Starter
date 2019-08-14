@@ -105,7 +105,9 @@ public class PickFlavorViewController: UIViewController {
             if let myInt = Int(xml.response.time_taken_ms.text!) {
             print(myInt)
             }
-              //print(xml["response","data","METAR",i,"station_id"].text!)
+            if let myTxt = xml.response.data.METAR[i].sky_condition[0].attributes["sky_cover"]{
+              print(myTxt)
+            }              //print(xml["response","data","METAR",i,"station_id"].text!)
           }
           //print(datastring)// the top title of iTunes app raning.
       }
@@ -168,3 +170,38 @@ extension PickFlavorViewController: UICollectionViewDelegate {
     update(with: flavor)
   }
 }
+/* Note: multiple metars normally - cause Multipe elements error.
+ <response version="1.2" xsi:noNamespaceSchemaLocation="http://aviationweather.gov/adds/schema/metar1_2.xsd">
+      <request_index>49453490</request_index>
+      <data_source name="metars"/>
+      <request type="retrieve"/>
+      <errors/>
+      <warnings/>
+      <time_taken_ms>9</time_taken_ms>
+      <data num_results="6">
+            <METAR>
+                <raw_text>KDEN 132153Z 06010G19KT 10SM FEW100 FEW220 31/07 A3019 RMK AO2 SLP133 T03060072</raw_text>
+                <station_id>KDEN</station_id>
+                <observation_time>2019-08-13T21:53:00Z</observation_time>
+                <latitude>39.85</latitude>
+                <longitude>-104.65</longitude>
+                <temp_c>30.6</temp_c>
+                <dewpoint_c>7.2</dewpoint_c>
+                <wind_dir_degrees>60</wind_dir_degrees>
+                <wind_speed_kt>10</wind_speed_kt>
+                <wind_gust_kt>19</wind_gust_kt>
+                <visibility_statute_mi>10.0</visibility_statute_mi>
+                <altim_in_hg>30.188976</altim_in_hg>
+                <sea_level_pressure_mb>1013.3</sea_level_pressure_mb>
+                <quality_control_flags>
+                        <auto_station>TRUE</auto_station>
+                </quality_control_flags>
+                <sky_condition sky_cover="FEW" cloud_base_ft_agl="10000"/>
+                <sky_condition sky_cover="FEW" cloud_base_ft_agl="22000"/>
+                <flight_category>VFR</flight_category>
+                <metar_type>SPECI</metar_type>
+                <elevation_m>1640.0</elevation_m>
+           </METAR>
+      </data>
+ </response>
+ */
